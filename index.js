@@ -10,7 +10,8 @@ app.use(function (req, res, next) {
 });
 app.get('/', async function(req, res) 
 {
-    var prediction="";
+    var prediction1="";
+    var prediction2="";
     
     var horoscope = ["none","Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
     let arr = ["null","Mar 21 – Apr 20","Apr 21 – May 21","May 22 – Jun 21","Jun 22 – Jul 23","Jul 24 – Aug 23","Aug 24 – Sep 23","Sep 24 – Oct 23","Oct 24 – Nov 22","Nov 23 – Dec 21","Dec 22 – Jan 20","Jan 21 – Feb 19","Feb 20 – Mar 20"];
@@ -21,11 +22,13 @@ app.get('/', async function(req, res)
         request(url, function(error, response, html) {
           if(!error) {
             $ = cheerio.load(html);
-            prediction = $('div.main-horoscope > p').text();
+            prediction1 = $('div.inner flex-center-inline > h4').text();
+            prediction2 = $('div.inner flex-center-inline > p').text();
             resolve({
                 id: arr[id],
                 horoscope: horoscope[id],
-                prediction: prediction,
+                prediction1: prediction1,
+                prediction2: prediction2,
             });
           }else{
             reject(undefined);
